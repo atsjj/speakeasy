@@ -1,4 +1,4 @@
 speakeasy
 =========
 
-Interactive drink menu.
+Interactive drink menu; fat stacks of drinks.
