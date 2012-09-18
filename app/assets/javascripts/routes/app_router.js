@@ -7,7 +7,7 @@ Speakeasy.Router = Ember.Router.extend({
     }),
     
     drinks: Ember.Route.extend({
-      route: '/drinks',
+      route: '/drinks', // http://localhost:3000/#/drinks
 
       connectOutlets: function(router) {
         router.get('drinksController').set('content', router.store.findAll(Speakeasy.Drink));
