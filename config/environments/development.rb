@@ -34,4 +34,7 @@ Speakeasy::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # Choose which Ember asset to load
+  config.ember.variant = :development
 end
