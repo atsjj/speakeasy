@@ -15,6 +15,10 @@ group :assets do
   gem "uglifier", "1.3.0"
 end
 
+group :development do
+  gem "heroku", "2.31.2"
+end
+
 group :development, :test do
   gem "sqlite3", "1.3.6"
 end
