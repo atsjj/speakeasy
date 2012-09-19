@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require twitter/bootstrap-3d-carousel
 //= require handlebars
 //= require ember
 //= require ember-data

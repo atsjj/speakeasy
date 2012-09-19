@@ -1,11 +1,41 @@
 <h1>Drinks</h1>
-
-<ul>
-{{#each content}}
-  <li>
-    {{title}}
-  </li>
-{{/each}}
-</ul>
+<style type="text/css">
+  .carousel {
+    -webkit-transition: -webkit-transform 1s;
+  }
+  
+  .figurine {
+    display: block;
+    position: absolute;
+    width: 186px;
+    height: 116px;
+    left: 10px;
+    top: 10px;
+    border: 2px solid black;
+    line-height: 116px;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    
+    -webkit-transition: opacity 1s, -webkit-transform 1s;
+  }
+</style>
+<div style="position: relative; -webkit-perspective: 1100px; -webkit-perspective-origin-y: -75px; height: 140px; width: 210px; margin: 0 auto;">
+  <ul class="carousel" data-carousel="3d" id="drinks" style="position: absolute; width: 100%; height: 100%; -webkit-transform-style: preserve-3d;">
+  {{#each content}}
+    <li class="figurine">
+      {{title}}
+    </li>
+    <li class="figurine">
+      {{title}}
+    </li>
+    <li class="figurine">
+      {{title}}
+    </li>
+  {{/each}}
+  </ul>
+  <a class="carousel-control left" href="#drinks" data-d3-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#drinks" data-d3-slide="next">&rsaquo;</a>
+</div>
 
 {{outlet}}
