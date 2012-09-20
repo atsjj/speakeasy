@@ -20,22 +20,7 @@
     -webkit-transition: opacity 1s, -webkit-transform 1s;
   }
 </style>
-<div style="position: relative; -webkit-perspective: 1100px; -webkit-perspective-origin-y: -75px; height: 140px; width: 210px; margin: 0 auto;">
-  <ul class="carousel" id="drinks" style="position: absolute; width: 100%; height: 100%; -webkit-transform-style: preserve-3d;">
-  {{#each content}}
-    <li class="figurine">
-      {{title}}
-    </li>
-    <li class="figurine">
-      {{title}}
-    </li>
-    <li class="figurine">
-      {{title}}
-    </li>
-  {{/each}}
-  </ul>
-  <a class="carousel-control left" href="#drinks" data-d3-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#drinks" data-d3-slide="next">&rsaquo;</a>
-</div>
 
-{{outlet}}
+<div style="position: relative; -webkit-perspective: 1100px; -webkit-perspective-origin-y: -75px; height: 140px; width: 210px; margin: 0 auto;">
+  {{outlet}}
+</div>
