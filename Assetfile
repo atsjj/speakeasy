@@ -1,0 +1,27 @@
+require "rake-pipeline-web-filters"
+require "json"
+require "uglifier"
+require "execjs"
+
+output "public/js"
+
+input "app" do
+  output "tmp/speakeasy/build"
+  filter Rake::Pipeline::Web::Filters::CoffeeScriptFilter, :no_wrap => true
+end
+
+input "tmp/speakeasy/build" do
+  match "main.js" do
+    neuter(
+      :additional_dependencies => proc { |input|
+        Dir.glob(File.join(File.dirname(input.fullpath),'**','*.js'))
+      },
+      :path_transform => proc { |path, input|
+        package, path = path.split('/', 2)
+        dir, dep = path.split('/', 2)
+        dir && dep ? File.join(dir, "#{dep}.js") : File.join("#{path}.js")
+      }
+    )
+    concat "speakeasy.js"
+  end
+end
