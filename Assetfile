@@ -1,13 +1,34 @@
-require "rake-pipeline-web-filters"
-require "json"
-require "uglifier"
 require "execjs"
+require "json"
+require "rake-pipeline-web-filters"
+require "uglifier"
+
+class HandlebarsFilter < Rake::Pipeline::Filter
+  def initialize(&block)
+    block ||= proc { |input| input.sub(/\.handlebars$/, '.js') }
+    super(&block)
+  end
+
+  def generate_output(inputs, output)
+    inputs.each do |input|
+      output.write "Ember.TEMPLATES[\"#{File.basename(input.fullpath, ".handlebars")}\"] = Ember.Handlebars.compile(#{input.read.to_json})"
+    end
+  end
+end
 
 output "public/js"
 
 input "app" do
   output "tmp/speakeasy/build"
-  filter Rake::Pipeline::Web::Filters::CoffeeScriptFilter, :no_wrap => true
+  
+  match "*.coffee" do
+    filter Rake::Pipeline::Web::Filters::CoffeeScriptFilter, :no_wrap => true
+  end
+  
+  match "*.handlebars" do
+    filter HandlebarsFilter
+    concat "templates.js"
+  end
 end
 
 input "tmp/speakeasy/build" do
