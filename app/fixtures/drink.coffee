@@ -4,4 +4,7 @@ App.Drink.FIXTURES = [
 ,
   id: 2
   name: "Gin and Tonic"
+,
+  id: 3
+  name: "Manhattan"
 ]

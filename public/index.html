@@ -2,9 +2,36 @@
 <html>
 <head>
   <title>Speakeasy</title>
+  <style>
+    ul.roundabout {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      width: 42em;
+      height: 24em;
+    }
+    
+    ul.roundabout li {
+      height: 20em;
+      width: 30em;
+      background-color: #ccc;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    ul.roundabout li.roundabout-in-focus {
+      cursor: default;
+    }
+    
+    ul.roundabout li span {
+      display: block;
+      padding-top: 6em;
+    }
+  </style>
 </head>
 <body>
   <script src="js/jquery-1.8.2.min.js"></script>
+  <script src="jquery-roundabout-2.4.2.min.js"></script>
   <script src="js/handlebars-1.0.rc.1.js"></script>
   <script src="js/ember-1.0.0-pre.2.min.js"></script>
   <script src="js/ember-data-latest.min.js"></script>

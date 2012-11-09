@@ -11,7 +11,7 @@ class HandlebarsFilter < Rake::Pipeline::Filter
 
   def generate_output(inputs, output)
     inputs.each do |input|
-      output.write "Ember.TEMPLATES[\"#{File.basename(input.fullpath, ".handlebars")}\"] = Ember.Handlebars.compile(#{input.read.to_json})"
+      output.write "Ember.TEMPLATES[\"#{File.basename(input.fullpath, ".handlebars")}\"] = Ember.Handlebars.compile(#{input.read.to_json});\n"
     end
   end
 end

@@ -1,4 +1,5 @@
 App.Router = Ember.Router.extend
+  enableLogging: true
   root: Ember.Route.extend
     index: Ember.Route.extend
       route: "/"
@@ -8,5 +9,4 @@ App.Router = Ember.Router.extend
       index: Ember.Route.extend
         route: "/"
         connectOutlets: (router) ->
-          drinks = Ember.A([])
-          router.get("applicationController").connectOutlet("drinks", drinks)
+          router.get("applicationController").connectOutlet("drinks")
