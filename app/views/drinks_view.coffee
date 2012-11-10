@@ -1,4 +1,5 @@
 App.DrinksView = Ember.View.extend
   templateName: "drinks"
   didInsertElement: ->
-    @$("ul").roundabout()
+    @$("ul").roundabout
+      enableDrag: true
