@@ -56,7 +56,9 @@ App.ApplicationView = Ember.View.extend({
 App.DrinksView = Ember.View.extend({
   templateName: "drinks",
   didInsertElement: function() {
-    return this.$("ul").roundabout();
+    return this.$("ul").roundabout({
+      enableDrag: true
+    });
   }
 });
 
