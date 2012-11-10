@@ -8,9 +8,11 @@ require "app/stores/store"
 
 require "app/controllers/application_controller"
 require "app/controllers/drinks_controller"
+require "app/controllers/drink_controller"
 
 require "app/views/application_view"
 require "app/views/drinks_view"
+require "app/views/drink_view"
 
 require "app/templates"
 

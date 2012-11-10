@@ -1,0 +1,1 @@
+App.DrinkController = Ember.ObjectController.extend()
