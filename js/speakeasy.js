@@ -39,7 +39,9 @@ App.ApplicationController = Ember.Controller.extend();
 
 
 
-App.DrinksController = Ember.ArrayController.extend();
+App.DrinksController = Ember.ArrayController.extend({
+  lastSelectedDrink: null
+});
 
 
 
@@ -55,11 +57,27 @@ App.ApplicationView = Ember.View.extend({
 
 App.DrinksView = Ember.View.extend({
   templateName: "drinks",
+  selectedDrinkBinding: Ember.Binding.oneWay("this.controller.lastSelectedDrink"),
+  drinkIndex: (function() {
+    var index;
+    index = this.get("controller").indexOf(this.get("selectedDrink"));
+    if (index == null) {
+      index = 0;
+    }
+    return index;
+  }).property("controller", "selectedDrink").volatile(),
   didInsertElement: function() {
-    return this.$("ul").roundabout({
-      enableDrag: true
+    this.$("ul").roundabout({
+      enableDrag: true,
+      startingChild: this.get("drinkIndex")
     });
-  }
+    return console.log("didInsertElement roundabout set to", this.get("drinkIndex"));
+  },
+  selectedDrinkDidChange: (function() {
+    if (!this.$("ul").data("roundabout")) {
+      return this.$("ul").roundabout("animateToChild", this.get("drinkIndex"), 0);
+    }
+  }).property("drinkIndex")
 });
 
 
@@ -93,20 +111,22 @@ App.Router = Ember.Router.extend({
   enableLogging: true,
   root: Ember.Route.extend({
     goToRoot: Ember.Route.transitionTo("root.index"),
+    goToDrink: function(router, context) {
+      return router.transitionTo("drinks.show", {
+        id: context.context
+      });
+    },
     goToDrinks: Ember.Route.transitionTo("drinks.index"),
     index: Ember.Route.extend({
       route: "/",
-      redirectTo: "drinks.index"
+      enter: function(router) {
+        return router.send("goToDrinks");
+      }
     }),
     drinks: Ember.Route.extend({
       route: "/drinks",
-      enter: function() {
+      enter: function(router) {
         return App.Drink.find();
-      },
-      goToDrink: function(router, context) {
-        return router.transitionTo("drinks.show", {
-          id: context.context
-        });
       },
       index: Ember.Route.extend({
         route: "/",
@@ -117,8 +137,13 @@ App.Router = Ember.Router.extend({
       show: Ember.Route.extend({
         route: "/:id",
         connectOutlets: function(router, context) {
-          router.get("drinksController").connectOutlet("drink", App.Drink.find(context.id));
-          return router.get("applicationController").connectOutlet("drinks", App.Drink.find());
+          var selectedDrink, _ref;
+          if ((_ref = context.id) == null) {
+            context.id = 0;
+          }
+          selectedDrink = App.Drink.find(context.id);
+          router.get("drinksController").set("lastSelectedDrink", selectedDrink);
+          return router.get("drinksController").connectOutlet("drink", selectedDrink);
         }
       })
     })
