@@ -54,4 +54,5 @@ DEPENDENCIES
   rake-pipeline!
   rake-pipeline-web-filters!
   thin
+  thor
   uglifier!

@@ -13,3 +13,8 @@ desc "Fires up Thin."
 task :server do
   system 'thin -R config.ru start'
 end
+
+desc "Publishes contents of ./public to gh-pages."
+task :publish do
+  system 'thor app:publish'
+end
