@@ -16,5 +16,5 @@ end
 
 desc "Publishes contents of ./public to gh-pages."
 task :publish do
-  system 'thor app:publish'
+  system 'thor app:publish --force'
 end
