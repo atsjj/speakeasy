@@ -1,8 +1,23 @@
-$:.unshift 'beethoven'
-
 require 'bundler/setup'
 require 'rake-pipeline'
 require 'rake-pipeline/middleware'
+
+class ShipIt
+  def initialize(app)
+    @app = app
+  end
+  
+  def call(env)
+    requestFile = File.basename(env["REQUEST_PATH"])
+    pipeline = Rake::Pipeline::Project.new File.join(File.dirname(__FILE__), "Assetfile")
+    files = pipeline.output_files
+    
+    match = files.select { |k| requestFile == File.basename(k.path) }
+    pipeline.invoke unless match.empty?
+    
+    @app.call(env)
+  end
+end
 
 class NoCache
   def initialize(app)
@@ -57,8 +72,8 @@ end
 use NoCache
 
 map "/" do
-  use Rake::Pipeline::Middleware, "Assetfile"
-  run Rack::MyDirectory.new 'public'
+  use ShipIt
+  run Rack::MyDirectory.new 'public' 
 end
 
 map "/app" do
