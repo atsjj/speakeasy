@@ -1,7 +1,7 @@
 <ul class="roundabout">
   {{#each drink in view.controller}}
     {{#with drink}}
-      <li><span {{action goToDrink id}}>{{name}}</span></li>
+      <li><div {{action goToDrink id}}><span>{{name}}</span></div></li>
     {{/with}}
   {{/each}}
 </ul>
