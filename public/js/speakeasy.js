@@ -50,6 +50,7 @@ App.DrinkController = Ember.ObjectController.extend();
 
 
 App.ApplicationView = Ember.View.extend({
+  layoutName: "layout",
   templateName: "application"
 });
 
@@ -69,9 +70,9 @@ App.DrinksView = Ember.View.extend({
   didInsertElement: function() {
     return this.$("ul").roundabout({
       enableDrag: true,
+      maxScale: 1.2,
       startingChild: this.get("drinkIndex"),
-      tilt: -2,
-      maxScale: 1.2
+      tilt: -2
     });
   },
   selectedDrinkDidChange: (function() {
@@ -102,9 +103,10 @@ App.DrinkView = Ember.View.extend({
 });
 
 
-Ember.TEMPLATES["application"] = Ember.Handlebars.compile("<div class=\"navbar navbar-fixed-bottom\">\n  <div class=\"navbar-inner\">\n    <div class=\"container\">\n      <a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </a>\n      <a class=\"brand\" href=\"#\" {{action goToRoot}}>Speakeasy</a>\n      <div class=\"nav-collapse collapse\">\n        <ul class=\"nav\">\n          <li><a {{action goToDrinks}} href=\"#/drinks\">Drinks</a></li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"row-fluid\">\n  <div class=\"span12\">\n    {{outlet}}\n  </div>\n</div>");
+Ember.TEMPLATES["application"] = Ember.Handlebars.compile("{{outlet}}");
 Ember.TEMPLATES["drink"] = Ember.Handlebars.compile("{{#with view.controller}}\n  <div class=\"modal-header\">\n    <h3 id=\"drinkView\">{{name}} Recipe</h3>\n  </div>\n  <div class=\"modal-body\">\n    <p>\n      <ol>\n        <li>Booze.</li>\n        <li>Booze.</li>\n        <li>More Booze.</li>\n      </ol>\n    </p>\n    <p>\n      Drink some, then drink s'more!\n    </p>\n  </div>\n{{/with}}");
-Ember.TEMPLATES["drinks"] = Ember.Handlebars.compile("<ul class=\"roundabout\">\n  {{#each drink in view.controller}}\n    {{#with drink}}\n      <li><div {{action goToDrink id}}><span>{{name}}</span></div></li>\n    {{/with}}\n  {{/each}}\n</ul>\n{{outlet}}");
+Ember.TEMPLATES["drinks"] = Ember.Handlebars.compile("<ul class=\"roundabout\">\n  {{#each drink in view.controller}}\n    {{#with drink}}\n      <li {{action goToDrink id}}>{{name}}</li>\n    {{/with}}\n  {{/each}}\n</ul>\n{{outlet}}");
+Ember.TEMPLATES["layout"] = Ember.Handlebars.compile("<header class=\"navbar navbar-fixed-top\">\n  <div class=\"navbar-inner\">\n    <div class=\"container-fluid\">\n      <a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </a>\n      <a class=\"brand\" href=\"#\">Speakeasy</a>\n      <div class=\"nav-collapse collapse\">\n        <ul class=\"nav\">\n          <li><a {{action goToDrinks}} href=\"#/drinks\">Drinks</a></li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</header>\n<div class=\"container\">\n  <div class=\"row-fluid\">\n    <div class=\"span12\">\n      {{yield}}\n    </div>\n  </div>\n</div>");
 
 
 

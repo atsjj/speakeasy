@@ -1,0 +1,24 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">Speakeasy</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a {{action goToDrinks}} href="#/drinks">Drinks</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row-fluid">
+    <div class="span12">
+      {{yield}}
+    </div>
+  </div>
+</div>
